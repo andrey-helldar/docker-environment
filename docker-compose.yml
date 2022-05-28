@@ -16,7 +16,7 @@ services:
             TZ: 'UTC'
         volumes:
             - 'sail-mysql:/var/lib/mysql'
-            - './mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d'
+            - './mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
         networks:
             - sail
         healthcheck:
