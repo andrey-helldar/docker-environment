@@ -51,32 +51,6 @@ services:
         depends_on:
             - redis
 
-    elasticsearch:
-      build:
-        context: ./elasticsearch
-        args:
-          - ELK_VERSION=${ELK_VERSION}
-      volumes:
-        - sail-elasticsearch:/usr/share/elasticsearch/data
-      environment:
-        - cluster.name=sail-cluster
-        - node.name=sail-node
-        - bootstrap.memory_lock=false
-        - "ES_JAVA_OPTS=-Xms512m -Xmx2048m"
-        - cluster.initial_master_nodes=sail-node
-      ulimits:
-        memlock:
-          soft: -1
-          hard: -1
-        nofile:
-          soft: 65536
-          hard: 65536
-      ports:
-        - "${ELASTICSEARCH_HOST_HTTP_PORT}:9200"
-        - "${ELASTICSEARCH_HOST_TRANSPORT_PORT}:9300"
-      networks:
-        - sail
-
     pgadmin:
       image: dpage/pgadmin4:latest
       environment:
@@ -105,8 +79,6 @@ volumes:
     sail-mysql:
         driver: local
     sail-redis:
-        driver: local
-    sail-elasticsearch:
         driver: local
     sail-pgadmin:
         driver: local
