@@ -20,7 +20,7 @@ services:
         networks:
             - sail
         healthcheck:
-            test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+            test: [ "CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}" ]
             retries: 3
             timeout: 5s
 
@@ -33,7 +33,7 @@ services:
         networks:
             - sail
         healthcheck:
-            test: ["CMD", "redis-cli", "ping"]
+            test: [ "CMD", "redis-cli", "ping" ]
             retries: 3
             timeout: 5s
 
@@ -51,17 +51,38 @@ services:
         depends_on:
             - redis
 
+    pgsql:
+        build:
+            context: ./pgsql
+        ports:
+            - '${FORWARD_DB_PORT:-5432}:5432'
+        environment:
+            PGPASSWORD: '${DB_PASSWORD:-secret}'
+            POSTGRES_DB: '${DB_DATABASE}'
+            POSTGRES_USER: '${DB_USERNAME}'
+            POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
+            POSTGRES_VERSION: '${POSTGRES_VERSION:-alpine}'
+        volumes:
+            - 'sail-pgsql:/var/lib/postgresql/data'
+            - './pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql'
+        networks:
+            - sail
+        healthcheck:
+            test: [ "CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}" ]
+            retries: 3
+            timeout: 5s
+
     pgadmin:
-      image: dpage/pgadmin4:latest
-      environment:
-        - "PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}"
-        - "PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}"
-      ports:
-        - "${PGADMIN_PORT}:80"
-      volumes:
-        - sail-pgadmin:/var/lib/pgadmin
-      networks:
-        - sail
+        image: dpage/pgadmin4:latest
+        environment:
+            - "PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}"
+            - "PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}"
+        ports:
+            - "${PGADMIN_PORT}:80"
+        volumes:
+            - sail-pgadmin:/var/lib/pgadmin
+        networks:
+            - sail
 
     mailhog:
         image: 'mailhog/mailhog:latest'
@@ -79,6 +100,8 @@ volumes:
     sail-mysql:
         driver: local
     sail-redis:
+        driver: local
+    sail-pgsql:
         driver: local
     sail-pgadmin:
         driver: local
