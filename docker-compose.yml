@@ -2,8 +2,7 @@ version: '3'
 
 services:
     mysql:
-        build:
-            context: ./mysql
+        build: './mysql'
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
@@ -53,8 +52,7 @@ services:
             - redis
 
     pgsql:
-        build:
-            context: ./pgsql
+        build: './pgsql'
         ports:
             - '${FORWARD_DB_PORT:-5432}:5432'
         environment:
@@ -74,7 +72,7 @@ services:
             timeout: 5s
 
     pgadmin:
-        image: dpage/pgadmin4:latest
+        image: 'dpage/pgadmin4:latest'
         environment:
             - "PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}"
             - "PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}"
@@ -93,6 +91,22 @@ services:
         networks:
             - sail
 
+    rabbitmq:
+        build: './rabbitmq'
+        ports:
+            - "${RABBITMQ_NODE_HOST_PORT}:5672"
+            - "${RABBITMQ_MANAGEMENT_HTTP_HOST_PORT}:15672"
+            - "${RABBITMQ_MANAGEMENT_HTTPS_HOST_PORT}:15671"
+            - "${RABBITMQ_WEB_STOMP_HOST_PORT}:15674"
+        privileged: true
+        hostname: laradock-rabbitmq
+        volumes:
+            - sail-rabbitmq:/var/lib/rabbitmq
+            - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+            - ./rabbitmq/management_agent.disable_metrics_collector.conf:/etc/rabbitmq/conf.d/management_agent.disable_metrics_collector.conf
+        networks:
+            - sail
+
 networks:
     sail:
         driver: bridge
@@ -105,4 +119,6 @@ volumes:
     sail-pgsql:
         driver: local
     sail-pgadmin:
+        driver: local
+    sail-rabbitmq:
         driver: local
