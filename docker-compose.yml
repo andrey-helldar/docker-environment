@@ -94,10 +94,10 @@ services:
     rabbitmq:
         build: './rabbitmq'
         ports:
-            - "${RABBITMQ_NODE_HOST_PORT}:5672"
-            - "${RABBITMQ_MANAGEMENT_HTTP_HOST_PORT}:15672"
-            - "${RABBITMQ_MANAGEMENT_HTTPS_HOST_PORT}:15671"
-            - "${RABBITMQ_WEB_STOMP_HOST_PORT}:15674"
+            - "${RABBITMQ_NODE_HOST_PORT:-5672}:5672"
+            - "${RABBITMQ_MANAGEMENT_HTTP_HOST_PORT:-15672}:15672"
+            - "${RABBITMQ_MANAGEMENT_HTTPS_HOST_PORT:-15671}:15671"
+            - "${RABBITMQ_WEB_STOMP_HOST_PORT:-15674}:15674"
         privileged: true
         hostname: laradock-rabbitmq
         volumes:
