@@ -166,4 +166,4 @@ volumes:
     sail-rabbitmq:
         driver: local
     sail-elasticsearch:
-        driver: ${VOLUMES_DRIVER}
+        driver: local
