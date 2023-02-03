@@ -114,17 +114,6 @@ services:
                 - ELK_VERSION=${ELK_VERSION}
         volumes:
             - sail-elasticsearch:/usr/share/elasticsearch/data
-        environment:
-            - discovery.type=single-node
-            - http.cors.enabled=true
-            - http.cors.allow-origin=*
-            - cluster.name=laradock-cluster
-            - node.name=laradock-node
-            - bootstrap.memory_lock=true
-            - xpack.security.enabled=false
-            - xpack.security.transport.ssl.enabled=false
-            - "ES_JAVA_OPTS=-Xms2048m -Xmx2048m"
-            - cluster.initial_master_nodes=laradock-node
         ulimits:
             memlock:
                 soft: -1
@@ -133,8 +122,8 @@ services:
                 soft: 65536
                 hard: 65536
         ports:
-            - "${ELASTICSEARCH_HOST_HTTP_PORT}:9200"
-            - "${ELASTICSEARCH_HOST_TRANSPORT_PORT}:9300"
+            - "${ELASTICSEARCH_HOST_HTTP_PORT:-9200}:9200"
+            - "${ELASTICSEARCH_HOST_TRANSPORT_PORT:-9300}:9300"
         networks:
             - sail
 
@@ -144,7 +133,7 @@ services:
             args:
                 - ELK_VERSION=${ELK_VERSION}
         ports:
-            - "${KIBANA_HTTP_PORT}:5601"
+            - "${KIBANA_HTTP_PORT:-5601}:5601"
         depends_on:
             - elasticsearch
         networks:
