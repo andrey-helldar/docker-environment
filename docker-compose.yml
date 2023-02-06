@@ -123,7 +123,8 @@ services:
             - xpack.security.transport.ssl.enabled=false
             - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
             - cluster.initial_master_nodes=laradock-node
-            - vm.max_map_count=262144
+            - transport.host=127.0.0.1
+            - http.host=0.0.0.0
         ulimits:
             memlock:
                 soft: -1
