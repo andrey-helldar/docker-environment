@@ -2,5 +2,5 @@
 
 .env
 
-start.bat
-start.sh
+start.*
+build.*
