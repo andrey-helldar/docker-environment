@@ -116,7 +116,6 @@ services:
                 - ELK_VERSION=${ELK_VERSION}
         volumes:
             - sail-elasticsearch:/usr/share/elasticsearch/data
-            - sail-elasticsearch-logs:/usr/share/elasticsearch/logs
         environment:
             - cluster.name=laradock-cluster
             - node.name=laradock-node
@@ -140,18 +139,6 @@ services:
         networks:
             - sail
 
-    kibana:
-        build:
-            context: ./kibana
-            args:
-                - ELK_VERSION=${ELK_VERSION}
-        ports:
-            - "${KIBANA_HTTP_PORT:-5601}:5601"
-        networks:
-            - sail
-        depends_on:
-            - elasticsearch
-
 networks:
     sail:
         driver: bridge
@@ -168,6 +155,4 @@ volumes:
     sail-rabbitmq:
         driver: local
     sail-elasticsearch:
-        driver: local
-    sail-elasticsearch-logs:
         driver: local
