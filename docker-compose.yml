@@ -55,6 +55,7 @@ services:
 
     pgsql:
         build: './pgsql'
+        shm_size: 1g
         ports:
             - '${FORWARD_DB_PORT:-5432}:5432'
         environment:
