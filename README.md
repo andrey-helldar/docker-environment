@@ -1,6 +1,15 @@
 # Development Docker Environment
 
-<img src="https://preview.dragon-code.pro/andrey-helldar/docker-environment.svg?brand=docker" alt="Docker Environment"/> 
+<img src="https://preview.dragon-code.pro/andrey-helldar/docker-environment.svg?brand=docker" alt="Docker Environment"/>
+
+## List of services
+
+* MySQL
+* PostgreSQL + Admin
+* Redis + Admin
+* RabbitMQ
+* Elasticsearch
+* Mailhog
 
 ## Installation & Settings
 
