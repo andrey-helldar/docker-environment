@@ -105,35 +105,35 @@ services:
         networks:
             - dev
 
-#    elasticsearch:
-#        build:
-#            context: elasticsearch
-#            args:
-#                - ELK_VERSION=${ELK_VERSION:-8.7.1}
-#        volumes:
-#            - dev-elasticsearch:/usr/share/elasticsearch/data
-#        environment:
-#            - 'cluster.name=laradock-cluster'
-#            - 'node.name=laradock-node'
-#            - 'bootstrap.memory_lock=true'
-#            - 'xpack.security.enabled=false'
-#            - 'xpack.security.transport.ssl.enabled=false'
-#            - 'ES_JAVA_OPTS=-Xms2g -Xmx2g'
-#            - 'cluster.initial_master_nodes=laradock-node'
-#            - 'transport.host=127.0.0.1'
-#            - 'http.host=0.0.0.0'
-#        ulimits:
-#            memlock:
-#                soft: -1
-#                hard: -1
-#            nofile:
-#                soft: 65536
-#                hard: 65536
-#        ports:
-#            - '${ELASTICSEARCH_HOST_HTTP_PORT:-9200}:9200'
-#            - '${ELASTICSEARCH_HOST_TRANSPORT_PORT:-9300}:9300'
-#        networks:
-#            - dev
+    elasticsearch:
+        build:
+            context: elasticsearch
+            args:
+                - ELK_VERSION=${ELK_VERSION:-8.7.1}
+        volumes:
+            - dev-elasticsearch:/usr/share/elasticsearch/data
+        environment:
+            - 'cluster.name=laradock-cluster'
+            - 'node.name=laradock-node'
+            - 'bootstrap.memory_lock=true'
+            - 'xpack.security.enabled=false'
+            - 'xpack.security.transport.ssl.enabled=false'
+            - 'ES_JAVA_OPTS=-Xms2g -Xmx2g'
+            - 'cluster.initial_master_nodes=laradock-node'
+            - 'transport.host=127.0.0.1'
+            - 'http.host=0.0.0.0'
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+            nofile:
+                soft: 65536
+                hard: 65536
+        ports:
+            - '${ELASTICSEARCH_HOST_HTTP_PORT:-9200}:9200'
+            - '${ELASTICSEARCH_HOST_TRANSPORT_PORT:-9300}:9300'
+        networks:
+            - dev
 
     mailhog:
         image: 'mailhog/mailhog:latest'
