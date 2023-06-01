@@ -4,7 +4,7 @@
 
 ## Installation & Settings
 
-### Docker Environments
+### Docker Dev Environments
 
 ![how to use](.github/images/how-to-use.gif)
 
@@ -65,4 +65,4 @@ If you do not specify the path to the folder at the time of creation, then the r
 - `~/.docker/devenvironments` for Unix
 - `%USERPROFILE%\.docker\devenvironments\` for Windows
 
-By default, Docker Environments loads and starts all services.
+By default, `Docker Dev Environments` loads and starts all services.
