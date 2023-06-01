@@ -15,7 +15,7 @@ services:
             MYSQL_ALLOW_EMPTY_PASSWORD: 1
             TZ: 'UTC'
         volumes:
-            - 'dev-mysql:/var/lib/mysql'
+            - 'mysql:/var/lib/mysql'
             - './mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
             - './mysql/reset-users-passwords.sh:/docker-entrypoint-initdb.d/10-reset-users-passwords.sh'
         networks:
@@ -37,7 +37,7 @@ services:
             POSTGRES_PASSWORD: '${DB_PASSWORD:-dev}'
             POSTGRES_VERSION: '${POSTGRES_VERSION:-alpine}'
         volumes:
-            - 'dev-pgsql:/var/lib/postgresql/data'
+            - 'pgsql:/var/lib/postgresql/data'
             - './pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql'
         networks:
             - dev
@@ -54,7 +54,7 @@ services:
         ports:
             - '${PGADMIN_PORT:-5050}:80'
         volumes:
-            - dev-pgadmin:/var/lib/pgadmin
+            - pgadmin:/var/lib/pgadmin
         networks:
             - dev
         depends_on:
@@ -65,7 +65,7 @@ services:
         ports:
             - '${FORWARD_REDIS_PORT:-6379}:6379'
         volumes:
-            - 'dev-redis:/data'
+            - 'redis:/data'
         networks:
             - dev
         healthcheck:
@@ -99,7 +99,7 @@ services:
         privileged: true
         hostname: laradock-rabbitmq
         volumes:
-            - dev-rabbitmq:/var/lib/rabbitmq
+            - rabbitmq:/var/lib/rabbitmq
             - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
             - ./rabbitmq/management_agent.disable_metrics_collector.conf:/etc/rabbitmq/conf.d/management_agent.disable_metrics_collector.conf
         networks:
@@ -111,7 +111,7 @@ services:
             args:
                 - ELK_VERSION=${ELK_VERSION:-8.7.1}
         volumes:
-            - dev-elasticsearch:/usr/share/elasticsearch/data
+            - elasticsearch:/usr/share/elasticsearch/data
         environment:
             - 'cluster.name=laradock-cluster'
             - 'node.name=laradock-node'
@@ -148,15 +148,15 @@ networks:
         driver: bridge
 
 volumes:
-    dev-mysql:
+    mysql:
         driver: local
-    dev-redis:
+    redis:
         driver: local
-    dev-pgsql:
+    pgsql:
         driver: local
-    dev-pgadmin:
+    pgadmin:
         driver: local
-    dev-rabbitmq:
+    rabbitmq:
         driver: local
-    dev-elasticsearch:
+    elasticsearch:
         driver: local
