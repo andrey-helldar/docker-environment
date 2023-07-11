@@ -38,8 +38,6 @@ services:
     redis-webui:
         image: 'erikdubbelboer/phpredisadmin:latest'
         environment:
-            - 'ADMIN_USER=${REDIS_WEBUI_USERNAME}'
-            - 'ADMIN_PASS=${REDIS_WEBUI_PASSWORD}'
             - 'REDIS_1_HOST=${REDIS_WEBUI_CONNECT_HOST:-redis}'
             - 'REDIS_1_PORT=${REDIS_WEBUI_CONNECT_PORT:-6379}'
         volumes:
