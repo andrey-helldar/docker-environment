@@ -54,11 +54,8 @@ services:
         ports:
             - '${FORWARD_MAILPIT_PORT:-1025}:1025'
             - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
-        volumes:
-            - mailpit:/data
         environment:
             MP_MAX_MESSAGES: 5000
-            MP_DATA_FILE: /data/mailpit.db
             MP_SMTP_AUTH_ACCEPT_ANY: 1
             MP_SMTP_AUTH_ALLOW_INSECURE: 1
         networks:
@@ -66,8 +63,6 @@ services:
 
 volumes:
     mysql:
-        driver: local
-    mailpit:
         driver: local
 
 networks:
