@@ -2,7 +2,7 @@ version: '3'
 
 services:
     mysql:
-        build: mysql
+        image: 'mysql:latest'
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
@@ -23,6 +23,40 @@ services:
             test: [ "CMD", "mysqladmin", "ping", "-p${DB_PASSWORD:-dev}" ]
             retries: 3
             timeout: 5s
+
+    pgsql:
+        image: 'postgres:latest'
+        shm_size: 1g
+        ports:
+            - '${FORWARD_DB_PORT:-5432}:5432'
+        environment:
+            PGPASSWORD: '${DB_PASSWORD:-dev}'
+            POSTGRES_DB: '${DB_DATABASE:-default}'
+            POSTGRES_USER: '${DB_USERNAME:-dev}'
+            POSTGRES_PASSWORD: '${DB_PASSWORD:-dev}'
+        volumes:
+            - 'pgsql:/var/lib/postgresql/data'
+            - './pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql'
+        networks:
+            - dev
+        healthcheck:
+            test: [ "CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}" ]
+            retries: 3
+            timeout: 5s
+
+    pgadmin:
+        image: 'dpage/pgadmin4:latest'
+        environment:
+            - 'PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL:-dev@example.com}'
+            - 'PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD:-dev}'
+        ports:
+            - '${PGADMIN_PORT:-5050}:80'
+        volumes:
+            - pgadmin:/var/lib/pgadmin
+        networks:
+            - dev
+        depends_on:
+            - pgsql
 
     redis:
         image: 'redis:alpine'
@@ -49,6 +83,36 @@ services:
         depends_on:
             - redis
 
+    elasticsearch:
+        build:
+            context: ./elasticsearch
+            args:
+                - ELK_VERSION=${ELK_VERSION:-8.12.1}
+        volumes:
+            - elastic:/usr/share/elasticsearch/data
+        environment:
+            - 'cluster.name=dev-cluster'
+            - 'node.name=dev-node'
+            - 'bootstrap.memory_lock=true'
+            - 'xpack.security.enabled=false'
+            - 'xpack.security.transport.ssl.enabled=false'
+            - 'ES_JAVA_OPTS=-Xms2g -Xmx2g'
+            - 'cluster.initial_master_nodes=dev-node'
+            - 'transport.host=127.0.0.1'
+            - 'http.host=0.0.0.0'
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
+            nofile:
+                soft: 65536
+                hard: 65536
+        ports:
+            - '9200:9200'
+            - '9300:9300'
+        networks:
+            - dev
+
     mailpit:
         image: 'axllent/mailpit:latest'
         ports:
@@ -63,6 +127,12 @@ services:
 
 volumes:
     mysql:
+        driver: local
+    pgsql:
+        driver: local
+    pgadmin:
+        driver: local
+    elastic:
         driver: local
 
 networks:
