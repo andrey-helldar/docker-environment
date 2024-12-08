@@ -16,7 +16,6 @@ services:
             - 'mysql:/var/lib/mysql'
             - './mysql/my.cnf:/etc/mysql/conf.d/my.cnf'
             - './mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
-            - './mysql/reset-users-passwords.sh:/docker-entrypoint-initdb.d/10-reset-users-passwords.sh'
         networks:
             - dev
         healthcheck:
