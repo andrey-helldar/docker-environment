@@ -2,7 +2,7 @@ version: '3'
 
 services:
     mysql:
-        image: 'mysql:latest'
+        image: 'mysql:${MYSQL_VERSION:-latest}'
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
@@ -25,7 +25,7 @@ services:
             timeout: 5s
 
     pgsql:
-        image: 'postgres:latest'
+        image: 'postgres:${PGSQL_VERSION:-latest}'
         shm_size: 1g
         ports:
             - '${FORWARD_DB_PORT:-5432}:5432'
@@ -45,7 +45,7 @@ services:
             timeout: 5s
 
     pgadmin:
-        image: 'dpage/pgadmin4:latest'
+        image: 'dpage/pgadmin4:${PGADMIN_VERSION:-latest}'
         environment:
             - 'PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL:-dev@example.com}'
             - 'PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD:-dev}'
@@ -87,7 +87,7 @@ services:
         build:
             context: ./elasticsearch
             args:
-                - ELK_VERSION=${ELK_VERSION:-8.12.1}
+                - ELK_VERSION=${ELK_VERSION:-8.16.1}
         volumes:
             - elastic:/usr/share/elasticsearch/data
         environment:
