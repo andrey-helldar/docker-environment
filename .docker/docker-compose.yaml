@@ -12,10 +12,10 @@ services:
             MYSQL_USER: '${DB_USERNAME:-dev}'
             MYSQL_PASSWORD: '${DB_PASSWORD:-dev}'
             MYSQL_ALLOW_EMPTY_PASSWORD: 1
-            TZ: 'UTC'
         volumes:
             - 'mysql:/var/lib/mysql'
-            - './mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
+            - './mysql/my.cnf:/etc/mysql/conf.d/my.cnf'
+            - './mysql/reset-users-passwords.sh:/docker-entrypoint-initdb.d/10-reset-users-passwords.sh'
             - './mysql/reset-users-passwords.sh:/docker-entrypoint-initdb.d/10-reset-users-passwords.sh'
         networks:
             - dev
