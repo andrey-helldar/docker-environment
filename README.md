@@ -14,6 +14,8 @@
 
 ![how to use](.github/images/how-to-use.gif)
 
+Or just [click on this link](https://open.docker.com/dashboard/dev-envs?url=https://github.com/andrey-helldar/docker-environment.git&name=dev).
+
 ## Credentials
 
 By default, the following credentials are used:
