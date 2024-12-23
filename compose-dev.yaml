@@ -22,6 +22,7 @@ services:
             test: [ "CMD", "mysqladmin", "ping", "-p${DB_PASSWORD:-dev}" ]
             retries: 3
             timeout: 5s
+        restart: unless-stopped
 
     pgsql:
         image: 'postgres:${PGSQL_VERSION:-latest}'
@@ -42,6 +43,7 @@ services:
             test: [ "CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}" ]
             retries: 3
             timeout: 5s
+        restart: unless-stopped
 
     pgadmin:
         image: 'dpage/pgadmin4:${PGADMIN_VERSION:-latest}'
@@ -56,6 +58,7 @@ services:
             - dev
         depends_on:
             - pgsql
+        restart: unless-stopped
 
     redis:
         image: 'redis:alpine'
@@ -67,6 +70,7 @@ services:
             test: [ "CMD", "redis-cli", "ping" ]
             retries: 3
             timeout: 5s
+        restart: unless-stopped
 
     redis-webui:
         image: 'erikdubbelboer/phpredisadmin:latest'
@@ -81,6 +85,7 @@ services:
             - dev
         depends_on:
             - redis
+        restart: unless-stopped
 
     elasticsearch:
         build:
@@ -111,6 +116,7 @@ services:
             - '9300:9300'
         networks:
             - dev
+        restart: unless-stopped
 
     mailpit:
         image: 'axllent/mailpit:latest'
@@ -123,6 +129,7 @@ services:
             MP_SMTP_AUTH_ALLOW_INSECURE: 1
         networks:
             - dev
+        restart: unless-stopped
 
 volumes:
     mysql:
