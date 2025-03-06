@@ -15,7 +15,8 @@
 
 ![how to use](.github/images/how-to-use.gif)
 
-Or just [click on this link](https://open.docker.com/dashboard/dev-envs?url=https://github.com/andrey-helldar/docker-environment.git&name=dev).
+Or
+just [click on this link](https://open.docker.com/dashboard/dev-envs?url=https://github.com/andrey-helldar/docker-environment.git&name=dev).
 
 ## Credentials
 
@@ -53,3 +54,22 @@ If you do not specify the path to the folder at the time of creation, then the r
 By default, `Docker Dev Environments` loads and starts all services.
 If you want to disable some services, then simply remove them in the `Dev Environments` tab in the Docker Desktop
 interface.
+
+## Update
+
+To update containers, follow the following instructions:
+
+1. Go to the `Dev Environments` tab in Docker Desktop and stop the containers.
+2. Follow the console command by replacing the `dev` with the name of the group you specified. The name can be found in
+   the `Dev Environments' tab.
+
+   ```bash
+   cd ~/.docker/devenvironments/dev/repository/
+   git pull
+   ```
+
+3. In the `Dev Environments` tab, click on the launch of containers.
+   > [!NOTE]
+   > 
+   > It is important to launch containers from this tab, and not with `Containers',
+   since only this method will allow you to launch new containers.
