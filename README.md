@@ -9,6 +9,7 @@
 * Redis + WebUI
 * Elasticsearch
 * Mailpit
+* Uptime Kuma
 
 ## Installation & Settings
 
@@ -23,7 +24,7 @@ By default, the following credentials are used:
 ```ini
 MYSQL_VERSION = latest
 PGSQL_VERSION = latest
-ELK_VERSION = 8.16.1
+ELK_VERSION = 8.17.3
 
 DB_DATABASE = default
 DB_USERNAME = dev
@@ -41,7 +42,7 @@ PGADMIN_DEFAULT_PASSWORD = dev
 FORWARD_MAILPIT_PORT = 1025
 FORWARD_MAILPIT_DASHBOARD_PORT = 8025
 
-
+UPTIME_PORT = 3001
 ```
 
 If you do not specify the path to the folder at the time of creation, then the repository is cloned to the default path:
