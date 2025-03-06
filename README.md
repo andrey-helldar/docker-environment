@@ -69,7 +69,7 @@ To update containers, follow the following instructions:
    ```
 
 3. In the `Dev Environments` tab, click on the launch of containers.
-   > [!NOTE]
+   > Note
    > 
    > It is important to launch containers from this tab, and not with `Containers',
    since only this method will allow you to launch new containers.
