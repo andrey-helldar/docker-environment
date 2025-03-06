@@ -130,16 +130,6 @@ services:
         networks:
             - dev
         restart: unless-stopped
-    
-    uptime:
-        image: 'louislam/uptime-kuma:alpine'
-        ports:
-            - '${UPTIME_PORT:-8030}:3001'
-        volumes:
-            - uptime:/app/data
-        networks:
-            - dev
-        restart: unless-stopped
 
 volumes:
     mysql:
@@ -149,8 +139,6 @@ volumes:
     pgadmin:
         driver: local
     elastic:
-        driver: local
-    uptime:
         driver: local
 
 networks:
