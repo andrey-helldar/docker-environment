@@ -134,7 +134,7 @@ services:
     uptime:
         image: 'louislam/uptime-kuma:alpine'
         ports:
-            - '${UPTIME_PORT:-3001}:3001'
+            - '${UPTIME_PORT:-8030}:3001'
         volumes:
             - uptime:/app/data
         networks:
