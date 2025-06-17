@@ -2,6 +2,11 @@
 
 <img src="https://preview.dragon-code.pro/andrey-helldar/dev-environment.svg?brand=docker" alt="Docker Environment"/>
 
+> [!WARNING]
+>
+> Dev Environments was a feature introduced in Docker Desktop that allowed developers to spin up development environments quickly. It was deprecated and removed from Docker Desktop version 4.42 and later. Similar workflows can be achieved through Docker Compose or by creating custom configurations tailored to specific project requirements.
+> https://docs.docker.com/retired/#dev-environments
+
 ## List of services
 
 * MySQL
