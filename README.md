@@ -17,9 +17,9 @@
 ## Installation & Settings
 
 ```bash
-git clone git@github.com:andrey-helldar/docker-environment.git docker
+git clone git@github.com:andrey-helldar/docker-environment.git dev
 
-cd docker
+cd dev
 
 docker-compose up -d
 ```
