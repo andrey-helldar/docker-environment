@@ -27,7 +27,7 @@ By default, the following credentials are used:
 
 ```ini
 PGSQL_VERSION = latest
-ELK_VERSION = 8.17.3
+ELK_VERSION = 9.0.2
 
 DB_DATABASE = default
 DB_USERNAME = dev
