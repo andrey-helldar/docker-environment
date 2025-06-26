@@ -16,10 +16,30 @@
 
 ## Installation & Settings
 
-![how to use](.github/images/how-to-use.gif)
+```bash
+git clone git@github.com:andrey-helldar/docker-environment.git docker
 
-Or
-just [click on this link](https://open.docker.com/dashboard/dev-envs?url=https://github.com/andrey-helldar/docker-environment.git&name=dev).
+cd docker
+
+docker-compose up -d
+```
+
+## Start
+
+```bash
+docker-compose up -d
+```
+
+## Update
+
+```bash
+docker-compose stop
+
+git pull
+
+docker-compose build
+docker-compose up -d
+```
 
 ## Credentials
 
@@ -45,31 +65,3 @@ PGADMIN_DEFAULT_PASSWORD = dev
 FORWARD_MAILPIT_PORT = 1025
 FORWARD_MAILPIT_DASHBOARD_PORT = 8025
 ```
-
-If you do not specify the path to the folder at the time of creation, then the repository is cloned to the default path:
-
-- `~/.docker/devenvironments` for Unix
-- `%USERPROFILE%\.docker\devenvironments\` for Windows
-
-By default, `Docker Dev Environments` loads and starts all services.
-If you want to disable some services, then simply remove them in the `Dev Environments` tab in the Docker Desktop
-interface.
-
-## Update
-
-To update containers, follow the following instructions:
-
-1. Go to the `Dev Environments` tab in Docker Desktop and stop the containers.
-2. Follow the console command by replacing the `dev` with the name of the group you specified. The name can be found in
-   the `Dev Environments' tab.
-
-   ```bash
-   cd ~/.docker/devenvironments/dev/repository/
-   git pull
-   ```
-
-3. In the `Dev Environments` tab, click on the launch of containers.
-   > Note
-   > 
-   > It is important to launch containers from this tab, and not with `Containers',
-   since only this method will allow you to launch new containers.
