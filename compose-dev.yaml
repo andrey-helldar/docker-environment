@@ -1,29 +1,4 @@
 services:
-    mysql:
-        build:
-            context: ./mysql
-            args:
-                - MYSQL_VERSION=${MYSQL_VERSION:-latest}
-        ports:
-            - '${FORWARD_DB_PORT:-3306}:3306'
-        environment:
-            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD:-dev}'
-            MYSQL_ROOT_HOST: "%"
-            MYSQL_DATABASE: '${DB_DATABASE:-default}'
-            MYSQL_USER: '${DB_USERNAME:-dev}'
-            MYSQL_PASSWORD: '${DB_PASSWORD:-dev}'
-            MYSQL_ALLOW_EMPTY_PASSWORD: 1
-        volumes:
-            - 'mysql:/var/lib/mysql'
-            - './mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
-        networks:
-            - dev
-        healthcheck:
-            test: [ "CMD", "mysqladmin", "ping", "-p${DB_PASSWORD:-dev}" ]
-            retries: 3
-            timeout: 5s
-        restart: unless-stopped
-
     pgsql:
         image: 'postgres:${PGSQL_VERSION:-latest}'
         shm_size: 1g
@@ -132,8 +107,6 @@ services:
         restart: unless-stopped
 
 volumes:
-    mysql:
-        driver: local
     pgsql:
         driver: local
     pgadmin:

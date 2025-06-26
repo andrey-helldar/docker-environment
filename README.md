@@ -9,7 +9,6 @@
 
 ## List of services
 
-* MySQL
 * PostgreSQL + pgAdmin
 * Redis + WebUI
 * Elasticsearch
@@ -27,7 +26,6 @@ just [click on this link](https://open.docker.com/dashboard/dev-envs?url=https:/
 By default, the following credentials are used:
 
 ```ini
-MYSQL_VERSION = latest
 PGSQL_VERSION = latest
 ELK_VERSION = 8.17.3
 
