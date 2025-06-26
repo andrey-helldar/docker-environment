@@ -1,6 +1,6 @@
-# Dev Environment for Docker
+# Environment for Docker
 
-<img src="https://preview.dragon-code.pro/andrey-helldar/dev-environment.svg?brand=docker" alt="Docker Environment"/>
+<img src="https://preview.dragon-code.pro/andrey-helldar/environment.svg?brand=docker" alt="Docker Environment"/>
 
 > [!WARNING]
 >
