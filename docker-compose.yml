@@ -2,7 +2,7 @@ name: dev
 services:
     pgsql:
         image: 'postgres:${PGSQL_VERSION:-latest}'
-        shm_size: 1g
+        shm_size: 128m
         ports:
             - '${FORWARD_DB_PORT:-5432}:5432'
         environment:
