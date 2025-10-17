@@ -4,7 +4,10 @@
 
 > [!WARNING]
 >
-> Dev Environments was a feature introduced in Docker Desktop that allowed developers to spin up development environments quickly. It was deprecated and removed from Docker Desktop version 4.42 and later. Similar workflows can be achieved through Docker Compose or by creating custom configurations tailored to specific project requirements.
+> Dev Environments was a feature introduced in Docker Desktop that allowed developers to spin up development
+> environments quickly. It was deprecated and removed from Docker Desktop version 4.42 and later.
+> Similar workflows can be achieved through Docker Compose or by creating custom configurations tailored to specific
+> project requirements.
 > https://docs.docker.com/retired/#dev-environments
 
 ## List of services
@@ -21,24 +24,20 @@ git clone git@github.com:andrey-helldar/docker-environment.git dev
 
 cd dev
 
-docker-compose up -d
+docker compose up -d
 ```
 
 ## Start
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ## Update
 
 ```bash
-docker-compose stop
-
-git pull
-
-docker-compose build
-docker-compose up -d
+docker compose pull
+docker compose restart
 ```
 
 ## Credentials
@@ -47,7 +46,7 @@ By default, the following credentials are used:
 
 ```ini
 PGSQL_VERSION = latest
-ELK_VERSION = 9.0.2
+ELK_VERSION = 9.1.5
 
 DB_DATABASE = default
 DB_USERNAME = dev
