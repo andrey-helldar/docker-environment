@@ -67,7 +67,7 @@ services:
         build:
             context: ./elasticsearch
             args:
-                - ELK_VERSION=${ELK_VERSION:-9.0.2}
+                - ELK_VERSION=${ELK_VERSION:-9.2.1}
         volumes:
             - elastic:/usr/share/elasticsearch/data
         environment:
