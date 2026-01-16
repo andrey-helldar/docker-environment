@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
 docker compose pull
-docker compose restart
+docker compose stop
+docker compose up -d --build
