@@ -15,6 +15,12 @@ services:
             - './pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql'
         networks:
             - dev
+        command: >
+            postgres 
+            -c autovacuum_vacuum_scale_factor=0.01 
+            -c autovacuum_vacuum_threshold=1000 
+            -c autovacuum_analyze_scale_factor=0.005 
+            -c autovacuum_analyze_threshold=500
         healthcheck:
             test: [ "CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}" ]
             retries: 3
