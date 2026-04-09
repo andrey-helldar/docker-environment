@@ -96,7 +96,7 @@ services:
             - dev
         restart: always
 
-    mailpit:
+    mail:
         image: 'axllent/mailpit:latest'
         ports:
             - '${MAILPIT_PORT:-1025}:1025'
