@@ -27,7 +27,7 @@ services:
             timeout: 5s
         restart: always
 
-    pgadmin:
+    pgsql-ui:
         image: 'dpage/pgadmin4:${PGADMIN_VERSION:-latest}'
         environment:
             - 'PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL:-dev@example.com}'
