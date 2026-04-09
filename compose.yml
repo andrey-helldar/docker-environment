@@ -45,7 +45,7 @@ services:
     redis:
         image: 'redis:alpine'
         ports:
-            - '${FORWARD_REDIS_PORT:-6379}:6379'
+            - '${REDIS_PORT:-6379}:6379'
         networks:
             - dev
         healthcheck:
@@ -54,15 +54,10 @@ services:
             timeout: 5s
         restart: always
 
-    redis-webui:
-        image: 'erikdubbelboer/phpredisadmin:latest'
-        environment:
-            - 'REDIS_1_HOST=${REDIS_WEBUI_CONNECT_HOST:-redis}'
-            - 'REDIS_1_PORT=${REDIS_WEBUI_CONNECT_PORT:-6379}'
-        volumes:
-            - './redis/includes/config.sample.inc.php:/src/app/includes/config.sample.inc.php'
+    redis-ui:
+        image: 'redis/redisinsight:latest'
         ports:
-            - '${REDIS_WEBUI_PORT:-9987}:80'
+            - '${REDIS_UI_PORT:-5540}:5540'
         networks:
             - dev
         depends_on:
@@ -104,8 +99,8 @@ services:
     mailpit:
         image: 'axllent/mailpit:latest'
         ports:
-            - '${FORWARD_MAILPIT_PORT:-1025}:1025'
-            - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
+            - '${MAILPIT_PORT:-1025}:1025'
+            - '${MAILPIT_DASHBOARD_PORT:-8025}:8025'
         environment:
             MP_MAX_MESSAGES: 5000
             MP_SMTP_AUTH_ACCEPT_ANY: 1
