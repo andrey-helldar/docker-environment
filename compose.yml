@@ -58,6 +58,8 @@ services:
         image: 'redis/redisinsight:latest'
         ports:
             - '${REDIS_UI_PORT:-5540}:5540'
+        volumes:
+            - redis_ui:/data
         networks:
             - dev
         depends_on:
@@ -113,6 +115,8 @@ volumes:
     pgsql:
         driver: local
     pgadmin:
+        driver: local
+    redis_ui:
         driver: local
     elastic:
         driver: local
