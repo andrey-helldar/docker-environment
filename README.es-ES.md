@@ -1,0 +1,58 @@
+
+
+# Entorno para Docker
+
+## Lista de servicios
+
+* PostgreSQL + pgAdmin
+* Redis + WebUI
+* Elasticsearch
+* Mailpit
+
+## Instalación y configuración
+
+```bash
+git clone git@github.com:andrey-helldar/docker-environment.git dev
+
+cd dev
+
+docker compose up -d
+```
+
+## Inicio
+
+```bash
+docker compose up -d
+```
+
+## Actualización
+
+```bash
+docker compose pull
+docker compose restart
+```
+
+## Credenciales
+
+Por defecto, se utilizan las siguientes credenciales:
+
+```ini
+PGSQL_VERSION = latest
+ELK_VERSION = 9.1.5
+
+DB_DATABASE = default
+DB_USERNAME = dev
+DB_PASSWORD = dev
+
+REDIS_WEBUI_CONNECT_HOST = redis
+REDIS_WEBUI_CONNECT_PORT = 6379
+REDIS_WEBUI_PORT = 9987
+
+PGADMIN_VERSION = latest
+PGADMIN_PORT = 5050
+PGADMIN_DEFAULT_EMAIL = dev@example.com
+PGADMIN_DEFAULT_PASSWORD = dev
+
+FORWARD_MAILPIT_PORT = 1025
+FORWARD_MAILPIT_DASHBOARD_PORT = 8025
+```
